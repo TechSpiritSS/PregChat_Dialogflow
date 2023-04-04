@@ -48,4 +48,4 @@ In the future,
 # Conclusion
 PregChat is a powerful tool for mothers looking for quick and easy access to important information about their pregnancy. Our chatbot is designed to be simple, accessible and interactive, allowing mothers to ask questions and receive personalized responses in real-time. With PregChat, we hope to make the journey of pregnancy a little easier and more enjoyable for mothers around the world.
 
-made with the help of my teammate [Ankit Rout](https://github.com/ankitrout2903)
+Made with the help of my teammate [Ankit Rout](https://github.com/ankitrout2903)
