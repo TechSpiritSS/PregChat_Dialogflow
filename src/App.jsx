@@ -79,11 +79,14 @@ function App() {
 
     setLoading(true);
 
-    const response = await fetch('http://localhost:8080/text_query', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(jsonVal),
-    });
+    const response = await fetch(
+      'https://pregchat-backend-techspiritss.vercel.app/text_query',
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(jsonVal),
+      }
+    );
 
     const responseText = await response.text();
     const botMessage = { message: responseText, sender: 'bot' };
