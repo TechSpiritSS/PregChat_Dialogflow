@@ -1,4 +1,8 @@
 # PregChat: Your Personal Pregnancy Companion
+<p align="center">
+  <img src="./public/logo.jpeg" width="300" />
+</p>
+
 ## Overview
 PregChat is a chatbot designed to help expecting mothers access important information about their pregnancy in a simple, accessible and interactive way. Our chatbot is powered by Dialogflow, a Google Cloud-based natural language processing platform.
 
@@ -34,10 +38,10 @@ In the future,
 - Use of proper database instead of Google Sheets to provide more information.
 
 # Technologies used
-- Frontend - ReactJS
-- Backend - NodeJS
-- Database - Google Sheets
-- API - Dialogflow API, SheetsDB
-- Tools - Google Cloud Platform, Netlify
+- Frontend - ReactJS ![image](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+- Backend - NodeJS ![image](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
+- Database - Google Sheets ![image](https://img.shields.io/badge/Google%20Sheets-34A853?style=for-the-badge&logo=google-sheets&logoColor=white)
+- API - Dialogflow API, SheetsDB ![image](https://img.shields.io/badge/dialogflow-FF9800?style=for-the-badge&logo=dialogflow&logoColor=white) 
+- Tools - Google Cloud Platform, Vercel, GitHub ![image](https://img.shields.io/badge/Google_Cloud-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white)![image](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white) ![image](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
 # Conclusion
 PregChat is a powerful tool for mothers looking for quick and easy access to important information about their pregnancy. Our chatbot is designed to be simple, accessible and interactive, allowing mothers to ask questions and receive personalized responses in real-time. With PregChat, we hope to make the journey of pregnancy a little easier and more enjoyable for mothers around the world.
