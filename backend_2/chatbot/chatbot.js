@@ -38,7 +38,7 @@
 //   textQuery,
 // };
 
-const dialogflow = require('@google-cloud/dialogflow');
+const dialogflow = require('@google-cloud/dialogflow').v2beta1;
 const config = require('../config/devkey');
 
 const projectId = config.googleProjectId;
@@ -52,6 +52,12 @@ const sessionClient = new dialogflow.SessionsClient({
   },
 });
 
+const knowledgeBasePath =
+  'projects/' +
+  projectId +
+  '/knowledgeBases/' +
+  'OTAzODcxODQwNDgxODYzMjcwNA' +
+  '';
 const textQuery = async (userText, userId) => {
   const sessionVal = sessionId + userId;
   const sessionPath = sessionClient.projectAgentSessionPath(
@@ -66,6 +72,9 @@ const textQuery = async (userText, userId) => {
         text: userText,
         languageCode: config.dialogFlowSessionLanguageCode,
       },
+    },
+    queryParams: {
+      knowledgeBaseNames: [knowledgeBasePath],
     },
   };
 

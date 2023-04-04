@@ -29,14 +29,40 @@ function App() {
   ]);
   const [inputValue, setInputValue] = useState('');
   const [loading, setLoading] = useState(false);
+  const [speechRecognitionSupported, setSpeechRecognitionSupported] =
+    useState(false);
+  const [isListening, setIsListening] = useState(false);
   const messagesEndRef = useRef(null);
+  const recognitionRef = useRef(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
+    let synth = window.speechSynthesis;
+    let utterance = new SpeechSynthesisUtterance(
+      'Hi there! How can I assist you?'
+    );
+    let femaleVoices = synth
+      .getVoices()
+      .filter((voice) => voice.gender === 'female');
+    utterance.voice = femaleVoices[0];
+    synth.speak(utterance);
+
+    return () => {
+      // Clean up function to stop the speech when the component unmounts
+      synth.cancel();
+    };
+  }, []);
+
+  useEffect(() => {
     scrollToBottom();
+
+    // check if speech recognition is supported by the browser
+    if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+      setSpeechRecognitionSupported(true);
+    }
   }, [messages]);
 
   const sendMessage = async () => {
@@ -64,11 +90,43 @@ function App() {
     setLoading(false);
     setMessages([...messages, newMessage, botMessage]); // add bot message here
     setInputValue('');
+
+    // speak the bot message
+    const synth = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(responseText);
+    const femaleVoices = synth
+      .getVoices()
+      .filter((voice) => voice.gender === 'female');
+    utterance.voice = femaleVoices[0];
+    synth.speak(utterance);
+  };
+
+  const startSpeechRecognition = () => {
+    if (isListening) {
+      recognitionRef.current.stop();
+      setIsListening(false);
+      return;
+    }
+
+    setIsListening(true);
+    recognitionRef.current = new (window.SpeechRecognition ||
+      window.webkitSpeechRecognition)();
+    recognitionRef.current.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      setInputValue(transcript);
+      setIsListening(false);
+    };
+    recognitionRef.current.start();
   };
 
   return (
     <div className="App">
-      <div className="header">Chatbot UI</div>
+      <div className="header">
+        <div className="header-info">
+          <img src="./logo.jpeg" alt="User Profile" className="profile-image" />
+          <div className="username">PregChat</div>
+        </div>
+      </div>
       <div className="messages-container">
         {messages.map((message, index) => (
           <div
@@ -109,6 +167,16 @@ function App() {
           >
             Send
           </button>
+          <button
+            className="microphone-button"
+            onClick={startSpeechRecognition}
+            style={{
+              display: speechRecognitionSupported ? 'inline' : 'none',
+              color: isListening ? 'red' : 'black',
+            }}
+          >
+            <i class="fa fa-microphone" aria-hidden="true"></i>
+          </button>
         </form>
       </div>
     </div>
@@ -116,4 +184,18 @@ function App() {
 }
 
 export default App;
+
+function startSpeechRecognition() {
+  const recognition = new window.webkitSpeechRecognition();
+  recognition.continuous = false;
+  recognition.interimResults = false;
+  recognition.lang = 'en-US';
+  recognition.start();
+
+  recognition.onresult = function (event) {
+    const message = event.results[0][0].transcript;
+    setInputValue(message);
+    sendMessage();
+  };
+}
 
