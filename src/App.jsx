@@ -83,7 +83,10 @@ function App() {
       'https://pregchat-backend-techspiritss.vercel.app/text_query',
       {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
         body: JSON.stringify(jsonVal),
       }
     );

@@ -1,7 +1,19 @@
 const chatbot = require('../chatbot/chatbot');
+const cors = require('cors');
+
+const corsOptions = {
+  origin: '*',
+  optionsSuccessStatus: 200,
+
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+
+  allowedHeaders: 'Content-Type, Authorization, X-Requested-With',
+};
 
 module.exports = function (app) {
-  app.post('/text_query', async (req, res) => {
+  app.post('/text_query', cors(corsOptions), async (req, res) => {
     // console.log(req);
 
     const { text, userId } = req.body;
